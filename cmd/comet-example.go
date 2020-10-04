@@ -8,7 +8,6 @@ import (
 	banner "github.com/fengyfei/comet/banner/controller/gin"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
 )
 
 const (

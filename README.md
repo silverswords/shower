@@ -1,6 +1,7 @@
 # shower
 Gopher watch comet shower with a gin on Whale. Surrounded by dolphins and elephants.
 
+By define the interface with the controller. We could dynamic add API with loading different YAML config.
 
 # Usage
 
