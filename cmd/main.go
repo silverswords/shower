@@ -2,23 +2,31 @@ package main
 
 import (
 	"database/sql"
+	"os"
 
+	comet "github.com/abserari/shower/comet"
 	banner "github.com/fengyfei/comet/banner/controller/gin"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
 
+const (
+	// export COMET_DATABASE_URL=root:123456@tcp(127.0.0.1:3306)/test
+	databaseurl = "COMET_DATABASE_URL"
+)
+
 func main() {
 	router := gin.Default()
 
-	dbConn, err := sql.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/test")
+	url := os.Getenv(databaseurl)
+	dbConn, err := sql.Open("mysql", url)
 	if err != nil {
 		panic(err)
 	}
-	bannerCon := banner.New(dbConn, "banner")
 
-	bannerCon.RegisterRouter(router.Group("/api/v1/banner"))
+	var banner comet.Comet = banner.New(dbConn, "banner")
+	banner.RegisterRouter(router.Group("/api/v1/banner"))
 
 	router.Run(":8000")
 }

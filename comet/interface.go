@@ -4,9 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type comet interface {
-	Init(Metadata)
+type Comet interface {
 	RegisterRouter(gin.IRouter)
 }
-
-type Metadata map[string]interface{}
