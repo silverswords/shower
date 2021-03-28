@@ -6,7 +6,6 @@ import (
 	"log"
 
 	permission "github.com/abserari/shower/pkgs/permission/controller/gin"
-	pet "github.com/abserari/shower/pkgs/pet/controller/gin"
 	upload "github.com/abserari/shower/pkgs/upload/controller/gin"
 	admin "github.com/abserari/shower/pkgs/userAuth/controller"
 	"github.com/abserari/shower/utils/fileserver"
@@ -15,11 +14,23 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// config
+const (
+	uploadAddressBase        = "0.0.0.0:9573"
+	serverAddressBase        = ":8000"
+	mysqlConnAddress         = "root:123456@tcp(localhost:3306)/project?parseTime=true"
+
+ 	userAuthRouterGroup = "/api/v1/userAuth"
+	userAuthRouterGroupLogin = userAuthRouterGroup + "/login"
+	userAuthRouterRefreshToken = userAuthRouterGroup +"/refresh_token"
+ 	permissionRouterGroup = "/api/v1/permission"
+ 	uploadRouterGroup = "/api/v1/upload"
+)
 
 func main() {
 	router := gin.Default()
 
-	dbConn, err := sql.Open("mysql", "root:123456@tcp(localhost:3306)/project?parseTime=true")
+	dbConn, err := sql.Open("mysql", mysqlConnAddress)
 	if err != nil {
 		panic(err)
 	}
@@ -27,14 +38,13 @@ func main() {
 	// init controller with db conn
 	adminCon := admin.New(dbConn)
 	permissionCon := permission.New(dbConn, adminCon.GetID)
-	petCon := pet.New(dbConn, "pet")
-	uploadCon := upload.New(dbConn, "0.0.0.0:9573", adminCon.GetID)
+	uploadCon := upload.New(dbConn, uploadAddressBase, adminCon.GetID)
 
 	// register router and MiddlewareFunc
 
 	// login and refresh token.
-	router.POST("/api/v1/userAuth/login", adminCon.JWT.LoginHandler)
-	router.GET("/api/v1/userAuth/refresh_token", adminCon.JWT.RefreshHandler)
+	router.POST(userAuthRouterGroupLogin, adminCon.JWT.LoginHandler)
+	router.GET(userAuthRouterRefreshToken, adminCon.JWT.RefreshHandler)
 
 	// start to add token on every API after userAuth.RegisterRouter
 	router.Use(adminCon.JWT.MiddlewareFunc())
@@ -43,14 +53,11 @@ func main() {
 	// start to check the userAuth permission every time.
 	router.Use(permissionCon.CheckPermission())
 
-	adminCon.RegisterRouter(router.Group("/api/v1/userAuth"))
+	adminCon.RegisterRouter(router.Group(userAuthRouterGroup))
+	permissionCon.RegisterRouter(router.Group(permissionRouterGroup))
+	uploadCon.RegisterRouter(router.Group(uploadRouterGroup))
 
-	permissionCon.RegisterRouter(router.Group("/api/v1/permission"))
-
-	petCon.RegisterRouter(router.Group("/api/v1/pet"))
-
-	uploadCon.RegisterRouter(router.Group("/api/v1/userAuth"))
-
-	go fileserver.StartFileServer("0.0.0.0:9573", "")
-	log.Fatal(router.Run(":8000"))
+	// start the fileServer services
+	go fileserver.StartFileServer(uploadAddressBase, "")
+	log.Fatal(router.Run(serverAddressBase))
 }
