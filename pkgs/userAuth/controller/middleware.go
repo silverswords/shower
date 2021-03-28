@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/abserari/shower/pkgs/admin/model/mysql"
+	"github.com/abserari/shower/pkgs/userAuth/model/mysql"
 	jwt "github.com/appleboy/gin-jwt/v2"
 
 	"github.com/gin-gonic/gin"
@@ -67,7 +67,7 @@ func (con *Controller) newJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 		Authenticator: func(ctx *gin.Context) (interface{}, error) {
 			return con.Login(ctx)
 		},
-		// no need to check user valid every time.
+		// no need to check userAuth valid every time.
 		Authorizator: func(data interface{}, c *gin.Context) bool {
 			return true
 		},

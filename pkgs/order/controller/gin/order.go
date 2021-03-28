@@ -62,7 +62,7 @@ func Register(r gin.IRouter, db *sql.DB) error {
 
 	r.POST("/api/v1/order/create", c.Insert)
 	r.POST("/api/v1/order/info", c.OrderInfoByOrderID)
-	r.POST("/api/v1/order/user", c.LisitOrderByUserIDAndStatus)
+	r.POST("/api/v1/order/userAuth", c.LisitOrderByUserIDAndStatus)
 	r.POST("/api/v1/order/id", c.OrderIDByOrderCode)
 
 	return nil

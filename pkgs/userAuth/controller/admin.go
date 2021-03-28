@@ -13,16 +13,16 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/abserari/shower/pkgs/admin/model/mysql"
+	"github.com/abserari/shower/pkgs/userAuth/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 
 var (
-	// default user
+	// default userAuth
 	name     = "Admin"
 	password = "111111"
 
-	errActive          = errors.New("the admin is not activated")
+	errActive          = errors.New("the userAuth is not activated")
 	errUserIDNotExists = errors.New("Get Admin ID is not exists")
 	errUserIDNotValid  = func(value interface{}) error {
 		return errors.New(fmt.Sprintf("Get Admin ID is not valid. Is %s", value))
@@ -63,7 +63,7 @@ func (con *Controller) RegisterRouter(r gin.IRouter) {
 		log.Fatal(err)
 	}
 
-	// admin crud API
+	// userAuth crud API
 	r.POST("/create", con.create)
 	r.POST("/modify/email", con.modifyEmail)
 	r.POST("/modify/mobile", con.modifyMobile)

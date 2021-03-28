@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	admin = "admin"
+	admin = "userAuth"
 	intro = "use for test. Have any permission to API"
 )
 
@@ -33,7 +33,7 @@ func New(db *sql.DB, getID func(c *gin.Context) (uint32, error)) *Controller {
 	}
 }
 
-// todo: add configuration on user-defined API
+// todo: add configuration on userAuth-defined API
 func (c *Controller) InitWithUserAPI() {
 	c.initWithRole()
 }
@@ -46,7 +46,7 @@ func (c *Controller) RegisterRouter(r gin.IRouter) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// init with user defined API.
+	// init with userAuth defined API.
 	c.InitWithUserAPI()
 
 	// choose if from now on, every API would check if valid on current AdminID.

@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"log"
 
-	admin "github.com/abserari/shower/pkgs/admin/controller"
+	admin "github.com/abserari/shower/pkgs/userAuth/controller"
 	permission "github.com/abserari/shower/pkgs/permission/controller/gin"
 	pet "github.com/abserari/shower/pkgs/pet/controller/gin"
 	smservice "github.com/abserari/shower/pkgs/smservice/controller/gin"
@@ -44,13 +44,13 @@ func main() {
 
 	adminCon := admin.New(dbConn)
 	// login and refresh token.
-	router.POST("/api/v1/admin/login", adminCon.JWT.LoginHandler)
-	router.GET("/api/v1/admin/refresh_token", adminCon.JWT.RefreshHandler)
-	// start to add token on every API after admin.RegisterRouter
+	router.POST("/api/v1/userAuth/login", adminCon.JWT.LoginHandler)
+	router.GET("/api/v1/userAuth/refresh_token", adminCon.JWT.RefreshHandler)
+	// start to add token on every API after userAuth.RegisterRouter
 	router.Use(adminCon.JWT.MiddlewareFunc())
-	// start to check the user active every time.
+	// start to check the userAuth active every time.
 	router.Use(adminCon.CheckActive())
-	adminCon.RegisterRouter(router.Group("/api/v1/admin"))
+	adminCon.RegisterRouter(router.Group("/api/v1/userAuth"))
 
 	permissionCon := permission.New(dbConn, adminCon.GetID)
 	router.Use(permissionCon.CheckPermission())
@@ -60,7 +60,7 @@ func main() {
 	petCon.RegisterRouter(router.Group("/api/v1/pet"))
 
 	uploadCon := upload.New(dbConn, "0.0.0.0:9573", adminCon.GetID)
-	uploadCon.RegisterRouter(router.Group("/api/v1/user"))
+	uploadCon.RegisterRouter(router.Group("/api/v1/userAuth"))
 
 	go fileserver.StartFileServer("0.0.0.0:9573", "")
 	log.Fatal(router.Run(":8000"))

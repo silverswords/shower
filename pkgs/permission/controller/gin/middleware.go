@@ -14,7 +14,7 @@ import (
 )
 
 var (
-	errPermission = errors.New("admin permission is wrong")
+	errPermission = errors.New("userAuth permission is wrong")
 )
 
 //CheckPermission middleware that checks the permission
@@ -28,7 +28,7 @@ func (c *Controller) CheckPermission() func(ctx *gin.Context) {
 			return
 		}
 
-		// not check to admin return
+		// not check to userAuth return
 		if adminID == 1000 {
 			return
 		}

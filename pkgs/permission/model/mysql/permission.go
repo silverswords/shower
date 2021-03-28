@@ -104,7 +104,7 @@ var (
 		`INSERT INTO relation(admin_id,role_id,created_at) VALUES (?,?,?)`,
 		`DELETE FROM relation WHERE admin_id = ? AND role_id = ? LIMIT 1`,
 		`SELECT relation.role_id FROM relation, role WHERE relation.admin_id = ? AND role.active = true AND relation.role_id = role.role_id LOCK IN SHARE MODE`,
-		`SELECT relation.admin_id FROM admin, relation,role WHERE relation.role_id = ? AND role.active = true AND admin.active AND relation.admin_id = admin.admin_id LOCK IN SHARE MODE`,
+		`SELECT relation.admin_id FROM userAuth, relation,role WHERE relation.role_id = ? AND role.active = true AND userAuth.active AND relation.admin_id = userAuth.admin_id LOCK IN SHARE MODE`,
 		`SELECT relation.role_id FROM relation, role WHERE  role.active = true AND relation.role_id = role.role_id LOCK IN SHARE MODE`,
 	}
 )
@@ -316,7 +316,7 @@ func RemoveRelation(db *sql.DB, aid, rid uint32) error {
 	return err
 }
 
-// AdminGetRoleMap list all the roles of the specified admin and the return form is map.
+// AdminGetRoleMap list all the roles of the specified userAuth and the return form is map.
 func AdminGetRoleMap(db *sql.DB, aid uint32) (map[uint32]bool, error) {
 	var (
 		roleID uint32
@@ -339,7 +339,7 @@ func AdminGetRoleMap(db *sql.DB, aid uint32) (map[uint32]bool, error) {
 	return result, nil
 }
 
-// AssociatedRoleList list all the roles of the specified admin and the return form is slice.
+// AssociatedRoleList list all the roles of the specified userAuth and the return form is slice.
 func AssociatedRoleList(db *sql.DB, aid uint32) ([]*RelationData, error) {
 	var (
 		roleID uint32
@@ -378,7 +378,7 @@ func IsActive(db *sql.DB, id uint32) (bool, error) {
 	return isActive, nil
 }
 
-// GetAdminIDMap list all the roles of the specified admin and the return form is map.
+// GetAdminIDMap list all the roles of the specified userAuth and the return form is map.
 func GetAdminIDMap(db *sql.DB) (map[uint32]bool, error) {
 	var (
 		AdminID uint32
@@ -408,7 +408,7 @@ func GetAdminIDMap(db *sql.DB) (map[uint32]bool, error) {
 	return result, nil
 }
 
-// GetRoleIDMap list all the roles of the specified admin and the return form is map.
+// GetRoleIDMap list all the roles of the specified userAuth and the return form is map.
 func GetRoleIDMap(db *sql.DB) (map[uint32]bool, error) {
 	var (
 		AdminID uint32
