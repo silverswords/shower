@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"time"
 
-	mysql "github.com/abserari/shower/banner/model/mysql"
+	mysql "github.com/abserari/shower/pkgs/banner/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 

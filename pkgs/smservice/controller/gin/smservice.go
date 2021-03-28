@@ -10,8 +10,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/abserari/shower/smservice/model/mysql"
-	service "github.com/abserari/shower/smservice/service"
+	"github.com/abserari/shower/pkgs/smservice/model/mysql"
+	service "github.com/abserari/shower/pkgs/smservice/service"
 	"github.com/gin-gonic/gin"
 )
 

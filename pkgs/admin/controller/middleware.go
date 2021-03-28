@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/abserari/shower/admin/model/mysql"
+	"github.com/abserari/shower/pkgs/admin/model/mysql"
 	jwt "github.com/appleboy/gin-jwt/v2"
 
 	"github.com/gin-gonic/gin"

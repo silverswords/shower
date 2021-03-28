@@ -10,7 +10,7 @@ import (
 	"log"
 	"net/http"
 
-	mysql "github.com/abserari/shower/permission/model/mysql"
+	mysql "github.com/abserari/shower/pkgs/permission/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/abserari/shower/order/model/mysql"
+	"github.com/abserari/shower/pkgs/order/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 

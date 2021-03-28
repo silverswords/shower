@@ -5,12 +5,12 @@ import (
 	"database/sql"
 	"log"
 
-	admin "github.com/abserari/shower/admin/controller"
-	permission "github.com/abserari/shower/permission/controller/gin"
-	pet "github.com/abserari/shower/pet/controller/gin"
-	smservice "github.com/abserari/shower/smservice/controller/gin"
-	service "github.com/abserari/shower/smservice/service"
-	upload "github.com/abserari/shower/upload/controller/gin"
+	admin "github.com/abserari/shower/pkgs/admin/controller"
+	permission "github.com/abserari/shower/pkgs/permission/controller/gin"
+	pet "github.com/abserari/shower/pkgs/pet/controller/gin"
+	smservice "github.com/abserari/shower/pkgs/smservice/controller/gin"
+	service "github.com/abserari/shower/pkgs/smservice/service"
+	upload "github.com/abserari/shower/pkgs/upload/controller/gin"
 	"github.com/abserari/shower/utils/fileserver"
 
 	"github.com/gin-gonic/gin"

@@ -13,7 +13,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/abserari/shower/admin/model/mysql"
+	"github.com/abserari/shower/pkgs/admin/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 
@@ -62,7 +62,7 @@ func (con *Controller) RegisterRouter(r gin.IRouter) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	// admin crud API
 	r.POST("/create", con.create)
 	r.POST("/modify/email", con.modifyEmail)

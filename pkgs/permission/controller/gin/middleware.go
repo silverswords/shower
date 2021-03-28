@@ -9,7 +9,7 @@ import (
 	"errors"
 	"net/http"
 
-	permission "github.com/abserari/shower/permission/model/mysql"
+	permission "github.com/abserari/shower/pkgs/permission/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 

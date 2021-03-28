@@ -17,7 +17,7 @@ import (
 
 	"time"
 
-	"github.com/abserari/shower/smservice/model/mysql"
+	"github.com/abserari/shower/pkgs/smservice/model/mysql"
 )
 
 var numbers = []byte("012345678998765431234567890987654321")

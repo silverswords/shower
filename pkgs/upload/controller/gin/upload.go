@@ -15,7 +15,7 @@ import (
 	"path"
 	"strings"
 
-	mysql "github.com/abserari/shower/upload/model/mysql"
+	mysql "github.com/abserari/shower/pkgs/upload/model/mysql"
 	md "github.com/abserari/shower/utils/file"
 	"github.com/gin-gonic/gin"
 )

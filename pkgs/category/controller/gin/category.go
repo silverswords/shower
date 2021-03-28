@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/abserari/shower/category/model/mysql"
+	"github.com/abserari/shower/pkgs/category/model/mysql"
 	"github.com/gin-gonic/gin"
 )
 
