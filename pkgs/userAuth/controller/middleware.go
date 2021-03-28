@@ -50,8 +50,8 @@ func (con *Controller) newJWTMiddleware() (*jwt.GinJWTMiddleware, error) {
 	return jwt.New(&jwt.GinJWTMiddleware{
 		Realm:       "test-pet",
 		Key:         []byte("moli-tech-cats-member"),
-		Timeout:     time.Hour,
-		MaxRefresh:  time.Hour,
+		Timeout:     140*time.Hour,
+		MaxRefresh:  140*time.Hour,
 		IdentityKey: "userID",
 		// use data as userID here.
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
